@@ -23,6 +23,7 @@ namespace linq1
 
             // if Func return result one by one it works defferd
             // if Func return result in the end, one time it works eager
+
             #region LINQ in action
             //IEnumerable<Course> courses = SampleDate.courses.Filter(c => c.Hours > 30);
 
@@ -56,14 +57,15 @@ namespace linq1
             //            where c.Hours > 20 
             //            select new {c.Hours , c.Name , c.department.Address};
             #endregion
+
             #region Agrregate Functions 
             //var q =
             //      SampleDate.courses.Where(c => c.Hours > 20 || c.Name == "C++")
             //      .Select(c => new { c.Name, c.Hours, c.department.Address }).Take(2);
 
-            //var q1 =
-            //  SampleDate.courses.Where(c => c.Hours > 20 || c.Name == "C++")
-            //  .Select(c => new { c.Name, c.Hours, c.department.Address }).Skip(2);
+            var q1 =
+              SampleDate.courses.Where(c => c.Hours > 20 || c.Name == "C++")
+              .Select(c => new {  c.Hours, fullName = (c.Name + c.department.Address) }).Skip(2);
 
             ////count eager execution
             //Console.WriteLine(SampleDate.courses.Count());
@@ -73,14 +75,17 @@ namespace linq1
 
             // Course course = SampleDate.courses.Max(); //throw exception. Must implement Icomparable ...  
             #endregion
+
             #region First & Last 
 
-            Course cr = SampleDate.courses.Where(c => c.Hours >= 20).FirstOrDefault(); //First
+            Course cr = SampleDate.courses.Where(c => c.Hours >= 20).First(); //First
             Course crs = SampleDate.courses.Where(c => c.Hours >= 20).LastOrDefault(); //Last
 
 
             #endregion
+
             //Console.WriteLine(cr.Hours);
+
             #region sub Query
             //var qr =
             //       from sub in SampleDate.subjects
@@ -161,7 +166,14 @@ namespace linq1
 
             #endregion
 
+            List<int> l = new List<int> { 1, 2, 3 , 2};
+            
+            var q = l.OrderBy(a=>a);
 
+            foreach(var c in q)
+            {
+                Console.WriteLine(c);
+            }
 
         }
 
